@@ -4,7 +4,8 @@ A fitted scikit-learn Pipeline served with FastAPI and deployed on Modal.
 
 ## What it does
 
-Fits on `Advanced Short Track Data 2026.csv` (40 drivers, 2026 season). A custom
+Fits on `season_stats_2026.csv` (36 drivers, full 2026 season through 28 races,
+every track — not filtered to one track type). A custom
 transformer, `FormIndexEngineer` (in `pipeline_def.py`), learns robust
 median/IQR statistics on the training field and engineers two extra features
 per driver: a `surge_index` (positions gained above expected, blended with net
@@ -57,7 +58,9 @@ modal deploy modal_serve.py
 I chose a nearest-neighbors anomaly-distance model because it's a natural fit
 for the NASCAR stats I already track for my season-long Chase project: instead
 of predicting a label, it answers "how unusual is this stat line, and who does
-it resemble?" — useful for spotting breakout or fluke performances. The custom
-transformer, `FormIndexEngineer`, engineers a robust (median/IQR) surge index
-and consistency gap from raw loop-data stats before scaling and neighbor
-search. Built with scikit-learn 1.9.0.
+it resemble?" — useful for spotting breakout or fluke performances. It's fit
+on every full-time driver's full 2026 season stats (28 races, all track types),
+so a query is compared against a driver's whole body of work rather than one
+race or track type. The custom transformer, `FormIndexEngineer`, engineers a
+robust (median/IQR) surge index and consistency gap from raw loop-data stats
+before scaling and neighbor search. Built with scikit-learn 1.9.0.

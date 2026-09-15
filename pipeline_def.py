@@ -10,8 +10,8 @@ from __future__ import annotations
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 
-# Raw stat columns (from the Advanced Short Track Data CSV) this transformer
-# expects, in order.
+# Raw stat columns (from the full 2026 season stats CSV, all tracks) this
+# transformer expects, in order.
 RAW_FEATURES = ["asp", "arp", "afp", "succ_pct", "pgae_per_100", "gr_lr", "ss", "cpoms"]
 
 # Engineered columns this transformer appends.

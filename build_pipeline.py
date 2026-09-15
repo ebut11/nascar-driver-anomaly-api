@@ -27,9 +27,7 @@ from sklearn.preprocessing import StandardScaler
 
 from pipeline_def import RAW_FEATURES, FormIndexEngineer
 
-CSV_PATH = (
-    Path(__file__).parent.parent / "Advanced Short Track Data 2026.csv"
-)
+CSV_PATH = Path(__file__).parent / "season_stats_2026.csv"
 OUT_PATH = Path(__file__).parent / "pipeline.joblib"
 
 CSV_TO_FEATURE = {
