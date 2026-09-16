@@ -13,6 +13,7 @@ from typing import Optional
 import joblib
 import numpy as np
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from pipeline_def import RAW_FEATURES, FormIndexEngineer  # noqa: F401 -- required to unpickle bundle
@@ -20,6 +21,16 @@ from pipeline_def import RAW_FEATURES, FormIndexEngineer  # noqa: F401 -- requir
 ARTIFACT_PATH = Path(__file__).parent / "pipeline.joblib"
 
 app = FastAPI(title="NASCAR Driver Anomaly API")
+
+# Browser clients (the Vercel frontend) call this cross-origin; curl/Postman
+# never hit this check, which is why it can pass every non-browser test and
+# still fail silently in a real browser without it.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 _bundle: Optional[dict] = None
 _load_error: Optional[str] = None
